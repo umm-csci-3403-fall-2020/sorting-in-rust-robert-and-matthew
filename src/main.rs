@@ -92,22 +92,29 @@ fn quicksort<T: PartialOrd + std::fmt::Debug>(v: &mut [T]) {
     // and we'll just stop.
     if length < 2 {
         return;
-
-	
     }
 
     // Now choose a pivot and do the organizing.
     
-    // ...
 
-    let smaller = 99999999; // Totally wrong – you should fix this.
+    let smaller = length-1; // Totally wrong – you should fix this.
+    let mut m = 0;
+
+    for x in 0..length-1 {
+    	if v[x] <= v[smaller] {
+	   v.swap(x,m);
+	   m = m + 1;
+	}
+    }
+    v.swap(m, smaller);
+
 
     // Sort all the items < pivot
-    quicksort(&mut v[0..smaller]);
+    quicksort(&mut v[0..m]);
     // Sort all the items ≥ pivot, *not* including the
     // pivot value itself. If we don't include the +1
     // here you can end up in infinite recursions.
-    quicksort(&mut v[smaller+1..length]);
+    quicksort(&mut v[m+1..length]);
 }
 
 // Mergesort can't be done "in place", so it needs to return a _new_
