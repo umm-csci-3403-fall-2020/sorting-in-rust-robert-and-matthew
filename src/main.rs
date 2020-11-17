@@ -96,16 +96,25 @@ fn quicksort<T: PartialOrd + std::fmt::Debug>(v: &mut [T]) {
 
     // Now choose a pivot and do the organizing.
     
-    // ...
 
-    let smaller = 99999999; // Totally wrong – you should fix this.
+    let smaller = length-1; // Totally wrong – you should fix this.
+    let mut m = 0; // placeholder
+
+    for x in 0..length-1 {
+    	if v[x] <= v[smaller] {
+	   v.swap(x,m);
+	   m = m + 1;
+	}
+    }
+    v.swap(m, smaller);
+
 
     // Sort all the items < pivot
-    quicksort(&mut v[0..smaller]);
+    quicksort(&mut v[0..m]);
     // Sort all the items ≥ pivot, *not* including the
     // pivot value itself. If we don't include the +1
     // here you can end up in infinite recursions.
-    quicksort(&mut v[smaller+1..length]);
+    quicksort(&mut v[m+1..length]);
 }
 
 // Mergesort can't be done "in place", so it needs to return a _new_
@@ -158,7 +167,32 @@ fn merge<T: PartialOrd + std::marker::Copy + std::fmt::Debug>(xs: Vec<T>, ys: Ve
 
     // This is totally wrong and will not sort. You should replace it
     // with something useful. :)
-    return xs;
+
+    let mut l = 0; // left
+    let mut r = 0; // right
+    let mut sorted = Vec::<T>::new();
+
+    while l < xs.len() && r < ys.len() { // main compare
+    	  if xs[l] < ys[r] {
+	     sorted.push(xs[l]);
+	     l = l + 1;
+	  } else {
+	    sorted.push(ys[r]);
+	    r = r + 1;
+	  }
+    }
+    
+    while l < xs.len() { // for checking against empty strings
+    	  sorted.push(xs[l]);
+	  l = l + 1;
+    }
+
+    while r < ys.len() {
+    	  sorted.push(ys[r]);
+	  r = r + 1;
+    }
+
+    return sorted;
 }
 
 fn is_sorted<T: PartialOrd>(slice: &[T]) -> bool {
