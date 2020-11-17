@@ -98,7 +98,7 @@ fn quicksort<T: PartialOrd + std::fmt::Debug>(v: &mut [T]) {
     
 
     let smaller = length-1; // Totally wrong – you should fix this.
-    let mut m = 0;
+    let mut m = 0; // placeholder
 
     for x in 0..length-1 {
     	if v[x] <= v[smaller] {
@@ -168,11 +168,11 @@ fn merge<T: PartialOrd + std::marker::Copy + std::fmt::Debug>(xs: Vec<T>, ys: Ve
     // This is totally wrong and will not sort. You should replace it
     // with something useful. :)
 
-    let mut l = 0;
-    let mut r = 0;
+    let mut l = 0; // left
+    let mut r = 0; // right
     let mut sorted = Vec::<T>::new();
 
-    while l < xs.len() && r < ys.len() {
+    while l < xs.len() && r < ys.len() { // main compare
     	  if xs[l] < ys[r] {
 	     sorted.push(xs[l]);
 	     l = l + 1;
@@ -182,7 +182,7 @@ fn merge<T: PartialOrd + std::marker::Copy + std::fmt::Debug>(xs: Vec<T>, ys: Ve
 	  }
     }
     
-    while l < xs.len() {
+    while l < xs.len() { // for checking against empty strings
     	  sorted.push(xs[l]);
 	  l = l + 1;
     }
